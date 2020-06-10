@@ -1,142 +1,46 @@
 <html>
 
-    <head>
-        <style>
-            @font-face {
-              font-family: Exo2;
-              src: url("font/Exo2-SemiBold.ttf");
-            }
+  <head>
 
-            #t1, #t2, #t3 {
-              width: 100;
-              height: 100;
-              border: 5px solid black;
-              float: left;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-            }
+    <style>
 
-            #m1, #m2, #m3 {
-              width: 100;
-              height: 100;
-              border: 5px solid black;
-              float: left;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-            }
+      @font-face {
+        font-family: Exo2;
+        src: url("font/Exo2-SemiBold.ttf");
+      }
 
-            #b1, #b2, #b3 {
-              width: 100;
-              height: 100;
-              border: 5px solid black;
-              float: left;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-            }
+      h1 {
+        font-family: Exo2;
+        font-size: 4em;
+      }
 
-            #table {
-              text-align: center;
-              height: 300;
-              float: left;
-              font-family: Exo2;
-            }
+      h2 {
+        font-family: Exo2;
+        font-size: 2em;
+      }
 
-            #ratsIMG {
-              float: left;
-              margin-left: 50;
-              margin-top: 92;
-              border: 5px solid black;
-            }
+      #three, #five {
+        margin: 1em;
+        padding: 1em;
+        border: 5px solid black;
+      }
 
-            #bossMotherRat, #pretender, #screamer, #soldier {
-              float: center;
-              border: 5px solid black;
-            }
+    </style>
+
+  </head>
 
 
+  <body>
 
-        </style>
+    <h1>Frontier Chronicles Enemy Layout Builder - Rats</h1>
 
-        <script>
-        function allowDrop(ev) {
-          ev.preventDefault();
-        }
+    <h2>Choose a Layout:</h2>
 
-        function drag(ev) {
-          ev.dataTransfer.setData("text", ev.target.id);
-        }
+    <a href="builderRats3x3.html"> <img id="three" src="/otherIMG/3x3.png" height="250"></a>
 
-        function removeNode(node) {
-          node.parentNode.removeChild(node);
-        }
+    <a href="builderRats3x3.html"> <img id="five" src="/otherIMG/5x3.png" height="250"></a>
 
-        function drop(ev) {
-          ev.preventDefault();
-          var data=ev.dataTransfer.getData("text");
-          ev.target.appendChild(document.getElementById(data).cloneNode(true));
-        }
-
-        function drop2(ev) {
-          ev.preventDefault();
-          var data = ev.dataTransfer.getData("text");
-          ev.target.appendChild(document.getElementById(data));
-        }
-
-        </script>
-
-    </head>
-
-    <body>
+  </body>
 
 
-      <div id="table">
-
-        <h1>Back</h1>
-
-        <div id="t1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-        <div id="t2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-        <div id="t3" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-
-        <br><br><br>
-
-        <div id="m1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-        <div id="m2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-        <div id="m3" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-
-        <br><br><br>
-
-        <div id="b1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-        <div id="b2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-        <div id="b3" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-
-        <br><br><br>
-
-        <h1>Front</h1>
-
-      </div>
-
-      <div id="ratsIMG">
-
-        <div id="bossMotherRat" ondrop="drop2(event)" ondragover="allowDrop(event)">
-          <img id="drag1" src="rats/rat_boss_motherrat_front.png" draggable="true" ondragstart="drag(event)" width="75em" height="75em">
-        </div>
-
-        <div id="pretender" ondrop="drop2(event)" ondragover="allowDrop(event)">
-          <img id="drag2" src="rats/rat_pretender_front.png" draggable="true" ondragstart="drag(event)" width="75em" height="75em">
-        </div>
-
-        <div id="screamer" ondrop="drop2(event)" ondragover="allowDrop(event)">
-          <img id="drag3" src="rats/rat_screamer_front.png" draggable="true" ondragstart="drag(event)" width="75em" height="75em">
-        </div>
-
-        <div id="soldier" ondrop="drop2(event)" ondragover="allowDrop(event)">
-          <img id="drag4" src="rats/rat_soldier_front.png" draggable="true" ondragstart="drag(event)" width="75em" height="75em">
-        </div>
-
-      </div>
-
-    </body>
 </html>

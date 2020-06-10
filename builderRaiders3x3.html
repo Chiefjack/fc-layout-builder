@@ -1,0 +1,268 @@
+<html>
+
+    <head>
+
+        <style>
+
+            @font-face {
+              font-family: Exo2;
+              src: url("font/Exo2-SemiBold.ttf");
+            }
+
+            #t1, #t2, #t3 {
+              width: 100;
+              height: 100;
+              border: 5px solid black;
+              float: left;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin: 0.75em;
+            }
+
+            #m1, #m2, #m3 {
+              width: 100;
+              height: 100;
+              border: 5px solid black;
+              float: left;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin: 0.75em;
+            }
+
+            #b1, #b2, #b3 {
+              width: 100;
+              height: 100;
+              border: 5px solid black;
+              float: left;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin: 0.75em;
+            }
+
+            #top {
+              display: inline-block;
+            }
+
+            #middle {
+              display: inline-block;
+            }
+
+            #bottom {
+              display: inline-block;
+            }
+
+            #table {
+              text-align: center;
+              height: 300;
+              float: left;
+              font-family: Exo2;
+            }
+
+            #back, #front {
+              margin-left: 0.75em;
+            }
+
+            #ratsIMG {
+              border: 5px solid black;
+              padding: 1em;
+              margin: 0.75em;
+              margin-left: 5em;
+              margin-top: 2em;
+            }
+
+            #bossBoomerang, #bossDeadEye, #bossPoacher, #cannonRider, #knifeThrower, #musketeer, #oneEyeSniper, #rampart, #rhinoRider {
+              padding-bottom: 1em;
+            }
+
+            #bin {
+              padding: 1em;
+              border: 5px solid black;
+              margin: 0.75em;
+              margin-left: 5em;
+              margin-top: 0.75em;
+            }
+
+            #tools {
+              float: left;
+              text-align: center;
+            }
+
+            #instructions {
+              text-align: left;
+              width: 400;
+              float: left;
+              font-family: Exo2;
+            }
+
+            #title {
+              margin-left: 5em;
+            }
+
+            #paragraphs {
+              margin-left: 5em;
+            }
+
+        </style>
+
+        <script src="DragDropTouch.js"></script>
+
+        <script>
+
+        var num = 11;
+
+        function allowDrop(ev) {
+          ev.preventDefault();
+        }
+
+        function drag(ev) {
+          ev.dataTransfer.setData("div", ev.target.id);
+        }
+
+        function drop(ev) {
+          ev.preventDefault();
+          if(ev.target.children.length === 0) {
+            var data = ev.dataTransfer.getData("div");
+            var nodeCopy = document.getElementById(data).cloneNode(true);
+            nodeCopy.id = "dragged" + num;
+            ev.target.appendChild(nodeCopy);
+            num++;
+          }
+        }
+
+        function drop2(ev) {
+          ev.preventDefault();
+          var data = ev.dataTransfer.getData("div");
+          ev.target.appendChild(document.getElementById(data));
+        }
+
+        </script>
+
+    </head>
+
+    <body>
+
+      <div id="table">
+
+        <h1 id="back">Back (side furthest from your army)</h1>
+
+        <div id="top">
+
+          <div id="t1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+          <div id="t2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+          <div id="t3" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+
+        </div>
+
+
+        <br>
+
+        <div id="middle">
+
+          <div id="m1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+          <div id="m2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+          <div id="m3" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+
+        </div>
+
+        <br>
+
+        <div id="bottom">
+
+          <div id="b1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+          <div id="b2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+          <div id="b3" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+          <div id="b4" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+          <div id="b5" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+
+        </div>
+
+        <h1 id="front">Front (side facing your army)</h1>
+        <h1 id="front">Your army is positioned here</h1>
+
+      </div>
+
+      <div id="tools">
+
+        <div id="ratsIMG">
+
+          <div id="bossBoomerang">
+            <img id="drag1" src="raiders/raider_boss_boomerang_front.png" draggable="true" ondragstart="drag(event)" width="75">
+          </div>
+
+          <div id="bossDeadEye">
+            <img id="drag2" src="raiders/raider_boss_deadeye_front.png" draggable="true" ondragstart="drag(event)" width="75">
+          </div>
+
+          <div id="bossPoacher">
+            <img id="drag3" src="raiders/raider_boss_poacher_front.png" draggable="true" ondragstart="drag(event)" width="75">
+          </div>
+
+          <div id="cannonRider">
+            <img id="drag4" src="raiders/raider_cannonrider_front.png" draggable="true" ondragstart="drag(event)" width="75">
+          </div>
+
+          <div id="knifeThrower">
+            <img id="drag5" src="raiders/raider_knifethrower_front.png" draggable="true" ondragstart="drag(event)" width="75">
+          </div>
+
+          <div id="musketeer">
+            <img id="drag6" src="raiders/raider_musketeer_front.png" draggable="true" ondragstart="drag(event)" width="75">
+          </div>
+
+          <div id="oneEyeSniper">
+            <img id="drag7" src="raiders/raider_oneeye_sniper_front.png" draggable="true" ondragstart="drag(event)" width="75">
+          </div>
+
+          <div id="rampart">
+            <img id="drag8" src="raiders/raider_rampart_front.png" draggable="true" ondragstart="drag(event)" width="75">
+          </div>
+
+          <div id="rhinoRider">
+            <img id="drag9" src="raiders/raider_rhinorider_front.png" draggable="true" ondragstart="drag(event)" width="75">
+          </div>
+
+          <div id="skullCrusher">
+            <img id="drag10" src="raiders/raider_skullcrusher_front.png" draggable="true" ondragstart="drag(event)" width="75">
+          </div>
+
+        </div>
+
+        <div id="remove">
+          <img id="bin" src="otherIMG/recycle-bin.png" width="75" ondrop="drop2(event)" ondragover="allowDrop(event)">
+        </div>
+
+      </div>
+
+      <div id="instructions">
+
+        <div id="title">
+
+          <h1>Instructions:</h1>
+
+        </div>
+
+        <div id="paragraphs">
+
+          <h2>'Drag and Drop' the units from the box in the centre to the boxes on the left. <br> To remove a unit from a box on the left, 'Drag and Drop' the unit into the bin in the centre. <br> Once you are happy with your layout, please screenshot it and send it in #raiders-layouts in the Frontier Chronicles Discord server.</h2>
+
+        </div>
+
+        <div id="title">
+
+          <h1>Known Issues:</h1>
+
+        </div>
+
+        <div id="paragraphs">
+
+          <h2>You can 'Drag and Drop' a unit from the centre list directly into the bin, causing it to be removed from the centre list. <br> 'Drag and Drop' doesn't work on some browsers (mostly mobile and outdated browsers). <br> It has been tested and works correctly on: <br> - Google Chrome <br> - Microsoft Edge <br> - Safari on iPadOS <br> It has been tested and doesn't work on: <br> - Internet Explorer <br> - Safari on iOS <br> - Chrome for iOS <br> - Firefox for iOS</h2>
+
+        </div>
+
+      </div>
+
+    </body>
+</html>
