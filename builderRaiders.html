@@ -1,0 +1,192 @@
+<html>
+
+    <head>
+        <style>
+        @font-face {
+          font-family: Exo2;
+          src: url("font/Exo2-SemiBold.ttf");
+        }
+
+        #t1, #t2, #t3 {
+          width: 100;
+          height: 100;
+          border: 5px solid black;
+          float: left;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        #m1, #m2, #m3, #m4, #m5 {
+          width: 100;
+          height: 100;
+          border: 5px solid black;
+          float: left;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        #b1, #b2, #b3, #b4, #b5 {
+          width: 100;
+          height: 100;
+          border: 5px solid black;
+          float: left;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        #top {
+          display: inline-block;
+        }
+
+        #middle {
+          display: inline-block;
+        }
+
+        #bottom {
+          display: inline-block;
+        }
+
+        #table {
+          text-align: center;
+          height: 300;
+          float: left;
+          font-family: Exo2;
+        }
+
+        #ratsIMG {
+          text-align: center;
+          height: 300;
+          float: right;
+          font-family: Exo2;
+          border: 5px solid black;
+          padding: 1em;
+          padding-bottom: 4em;
+        }
+
+        #bossMotherRat, #pretender, #screamer, #soldier {
+          padding-bottom: 1em;
+        }
+
+        #bin {
+          padding: 1em;
+          float: right;
+          clear: both;
+          border: 5px solid black;
+        }
+
+        </style>
+
+        <script>
+
+        var num = 0;
+
+        function allowDrop(ev) {
+          ev.preventDefault();
+        }
+
+        function drag(ev) {
+          ev.dataTransfer.setData("div", ev.target.id);
+        }
+
+        function drop(ev) {
+          ev.preventDefault();
+          if(ev.target.children.length === 0) {
+            var data = ev.dataTransfer.getData("div");
+            var nodeCopy = document.getElementById(data).cloneNode(true);
+            nodeCopy.id = "dragged" + num;
+            ev.target.appendChild(nodeCopy);
+            num++;
+          }
+        }
+
+        function drop2(ev) {
+          ev.preventDefault();
+          if(ev.target.children.length === 0) {
+            var data = ev.dataTransfer.getData("div");
+            ev.target.appendChild(document.getElementById(data));
+          }
+        }
+
+
+
+
+        </script>
+
+
+    </head>
+
+    <body>
+
+      <div id="table">
+
+        <h1>Back</h1>
+
+        <div id="top">
+
+          <div id="t1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+          <div id="t2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+          <div id="t3" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+
+        </div>
+
+        <br><br><br>
+
+        <div id="middle">
+
+          <div id="m1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+          <div id="m2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+          <div id="m3" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+          <div id="m4" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+          <div id="m5" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+
+        </div>
+
+        <br><br><br>
+
+        <div id="bottom">
+
+          <div id="b1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+          <div id="b2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+          <div id="b3" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+          <div id="b4" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+          <div id="b5" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+
+        </div>
+
+        <br><br>
+
+        <h1>Front</h1>
+
+      </div>
+
+      <div id="ratsIMG">
+
+        <div id="bossMotherRat">
+          <img id="drag1" src="rats/rat_boss_motherrat_front.png" draggable="true" ondragstart="drag(event)" width="75" height="75">
+        </div>
+
+        <div id="pretender">
+          <img id="drag2" src="rats/rat_pretender_front.png" draggable="true" ondragstart="drag(event)" width="75" height="75">
+        </div>
+
+        <div id="screamer">
+          <img id="drag3" src="rats/rat_screamer_front.png" draggable="true" ondragstart="drag(event)" width="75" height="75">
+        </div>
+
+        <div id="soldier">
+          <img id="drag4" src="rats/rat_soldier_front.png" draggable="true" ondragstart="drag(event)" width="75" height="75">
+        </div>
+
+      </div>
+
+      <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+      <div id="remove">
+        <img id="bin" src="otherIMG/recycle-bin.png" width="75" height="75" ondrop="drop2(event)" ondragover="allowDrop(event)">
+      </div>
+
+    </body>
+</html>
