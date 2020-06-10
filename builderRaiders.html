@@ -104,10 +104,8 @@
 
         function drop2(ev) {
           ev.preventDefault();
-          if(ev.target.children.length === 0) {
-            var data = ev.dataTransfer.getData("div");
-            ev.target.appendChild(document.getElementById(data));
-          }
+          var data = ev.dataTransfer.getData("div");
+          ev.target.appendChild(document.getElementById(data));
         }
 
 
