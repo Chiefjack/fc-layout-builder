@@ -9,7 +9,7 @@
             src: url("font/Exo2-SemiBold.ttf");
           }
 
-          #t1, #t2, #t3 {
+          #t2, #t3, #t4 {
             width: 100;
             height: 100;
             border: 5px solid black;
@@ -71,9 +71,11 @@
             margin: 0.75em;
             margin-left: 5em;
             margin-top: 2em;
+            height: 25em;
+            overflow-y: scroll;
           }
 
-          #bossMotherRat, #pretender, #screamer {
+          #bossMotherRat, #pretender, #screamer, #soldier, #explosive, #hostage, #stones {
             padding-bottom: 1em;
           }
 
@@ -105,13 +107,18 @@
             margin-left: 5em;
           }
 
+          html {
+            padding-bottom: 3em;
+          }
+
         </style>
 
         <script src="DragDropTouch.js"></script>
+        <script src="alert.js"></script>
 
         <script>
 
-        var num = 5;
+        var num = 9;
 
         function allowDrop(ev) {
           ev.preventDefault();
@@ -128,6 +135,7 @@
             var nodeCopy = document.getElementById(data).cloneNode(true);
             nodeCopy.id = "dragged" + num;
             ev.target.appendChild(nodeCopy);
+            playAlert("tink")
             num++;
           }
         }
@@ -136,6 +144,7 @@
           ev.preventDefault();
           var data = ev.dataTransfer.getData("div");
           ev.target.appendChild(document.getElementById(data));
+          playAlert("morse")
         }
 
         </script>
@@ -150,9 +159,9 @@
 
         <div id="top">
 
-          <div id="t1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
           <div id="t2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
           <div id="t3" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+          <div id="t4" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
 
         </div>
 
@@ -205,6 +214,22 @@
             <img id="drag4" src="rats/rat_soldier_front.png" draggable="true" ondragstart="drag(event)" width="75">
           </div>
 
+          <div id="explosive">
+            <img id="drag5" src="player/Objects/explosive_000.png" draggable="true" ondragstart="drag(event)" width="75">
+          </div>
+
+          <div id="hostage">
+            <img id="drag6" src="player/Objects/hostage_000.png" draggable="true" ondragstart="drag(event)" width="75">
+          </div>
+
+          <div id="stones">
+            <img id="drag7" src="player/Objects/stones_00.png" draggable="true" ondragstart="drag(event)" width="75">
+          </div>
+
+          <div id="treelog">
+            <img id="drag8" src="player/Objects/treelog_00.png" draggable="true" ondragstart="drag(event)" width="75">
+          </div>
+
         </div>
 
         <div id="remove">
@@ -223,7 +248,7 @@
 
         <div id="paragraphs">
 
-          <h2>'Drag and Drop' the units from the box in the centre to the boxes on the left. <br> To remove a unit from a box on the left, 'Drag and Drop' the unit into the bin in the centre. <br> Once you are happy with your layout, please screenshot it and send it in #rat-layouts in the Frontier Chronicles Discord server.</h2>
+          <h2>'Drag and Drop' the units from the box in the centre to the boxes on the left. <br> To remove a unit from a box on the left, 'Drag and Drop' the unit into the bin in the centre. <br> Once you are happy with your layout, please screenshot it and send it in #rats-layouts in the Frontier Chronicles Discord server.</h2>
 
         </div>
 
@@ -235,8 +260,8 @@
 
         <div id="paragraphs">
 
-          <h2>You can 'Drag and Drop' a unit from the centre list directly into the bin, causing it to be removed from the centre list. <br> It isn't necessarily 'mobile optimised', however you should still be able to create layouts on mobile. <br> 'Drag and Drop' doesn't work on some browsers (mostly outdated browsers). <br> It has been tested and works correctly on: <br> - Google Chrome <br> - Microsoft Edge <br> - Safari on iPadOS <br> - Safari on iOS <br> - Chrome for iOS <br> - Edge for iOS <br> - Firefox for iOS <br> It has been tested and doesn't work on: <br> - Internet Explorer </h2>
-          
+          <h2>You can 'Drag and Drop' a unit from the centre list directly into the bin, causing it to be removed from the centre list. <br> It isn't necessarily 'mobile optimised', however you should still be able to create layouts on mobile. <br> 'Drag and Drop' doesn't work on some browsers (mostly outdated browsers). <br> It has been tested and works correctly on: <br> - Google Chrome for Windows <br> - Microsoft Edge for Windows <br> - Firefox for Mac <br> - Safari for iPadOS <br> - Safari for iOS <br> - Chrome for iOS <br> - Edge for iOS <br> - Firefox for iOS <br> - Android Default Browser <br> It has been tested and doesn't work on: <br> - Internet Explorer </h2>
+
         </div>
 
       </div>

@@ -9,7 +9,7 @@
             src: url("font/Exo2-SemiBold.ttf");
           }
 
-          #t1, #t2, #t3 {
+          #t2, #t3, #t4 {
             width: 100;
             height: 100;
             border: 5px solid black;
@@ -71,9 +71,11 @@
             margin: 0.75em;
             margin-left: 5em;
             margin-top: 2em;
+            height: 25em;
+            overflow-y: scroll;
           }
 
-          #bossBoomerang, #bossDeadEye, #bossPoacher, #cannonRider, #knifeThrower, #musketeer, #oneEyeSniper, #rampart, #rhinoRider {
+          #bossBoomerang, #bossDeadEye, #bossPoacher, #cannonRider, #knifeThrower, #musketeer, #oneEyeSniper, #rampart, #rhinoRider, #skullCrusher, #explosive, #hostage, #stones {
             padding-bottom: 1em;
           }
 
@@ -105,13 +107,18 @@
             margin-left: 5em;
           }
 
+          html {
+            padding-bottom: 3em;
+          }
+
         </style>
 
         <script src="DragDropTouch.js"></script>
+        <script src="alert.js"></script>
 
         <script>
 
-        var num = 11;
+        var num = 15;
 
         function allowDrop(ev) {
           ev.preventDefault();
@@ -125,10 +132,49 @@
           ev.preventDefault();
           if(ev.target.children.length === 0) {
             var data = ev.dataTransfer.getData("div");
-            var nodeCopy = document.getElementById(data).cloneNode(true);
-            nodeCopy.id = "dragged" + num;
-            ev.target.appendChild(nodeCopy);
-            num++;
+
+            if (data == "drag2") {
+              var placedTile = ev.target.id
+
+              if (placedTile.startsWith("b")) {
+                window.alert("This Raider takes up a 1x2 tile area, so it can only be placed on the Middle or Top row. If you'd like to use it, please place it on those rows.");
+                return
+              }
+              if (placedTile.startsWith("m")) {
+                var dupTile = placedTile.replace("m", "b");
+              }
+              if (placedTile.startsWith("t")) {
+                var dupTile = placedTile.replace("t", "m");
+              }
+
+              var dupTilePlace = document.getElementById(dupTile);
+
+              if (dupTilePlace.innerHTML === "") {
+                var nodeCopy = document.getElementById(data).cloneNode(true);
+                nodeCopy.id = "dragged" + num;
+                ev.target.appendChild(nodeCopy);
+                num++;
+
+                var nodeCopy = document.getElementById(data).cloneNode(true);
+                nodeCopy.id = "dragged" + num;
+                dupTilePlace.appendChild(nodeCopy);
+                playAlert("tink")
+                num++;
+
+                window.alert("This Raider takes up a 1x2 tile area, hence it has been placed below this tile too. If you need to remove this Raider, you'll need to drag both of them to the Bin.");
+              }
+
+              else {
+                window.alert("This Raider takes up a 1x2 tile area, but there is another Raider placed below the tile you are trying to place this Raider in. Please drag the Raider below this tile to the Bin, and try placing it again. (If the Raider below this tile is also one that takes up multiple tiles, please drag both of them to the bin)");
+              }
+            }
+            else {
+              var nodeCopy = document.getElementById(data).cloneNode(true);
+              nodeCopy.id = "dragged" + num;
+              ev.target.appendChild(nodeCopy);
+              playAlert("tink")
+              num++;
+            }
           }
         }
 
@@ -136,6 +182,7 @@
           ev.preventDefault();
           var data = ev.dataTransfer.getData("div");
           ev.target.appendChild(document.getElementById(data));
+          playAlert("morse")
         }
 
         </script>
@@ -150,9 +197,9 @@
 
         <div id="top">
 
-          <div id="t1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
           <div id="t2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
           <div id="t3" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+          <div id="t4" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
 
         </div>
 
@@ -229,6 +276,22 @@
             <img id="drag10" src="raiders/raider_skullcrusher_front.png" draggable="true" ondragstart="drag(event)" width="75">
           </div>
 
+          <div id="explosive">
+            <img id="drag11" src="player/Objects/explosive_000.png" draggable="true" ondragstart="drag(event)" width="75">
+          </div>
+
+          <div id="hostage">
+            <img id="drag12" src="player/Objects/hostage_000.png" draggable="true" ondragstart="drag(event)" width="75">
+          </div>
+
+          <div id="stones">
+            <img id="drag13" src="player/Objects/stones_00.png" draggable="true" ondragstart="drag(event)" width="75">
+          </div>
+
+          <div id="treelog">
+            <img id="drag14" src="player/Objects/treelog_00.png" draggable="true" ondragstart="drag(event)" width="75">
+          </div>
+
         </div>
 
         <div id="remove">
@@ -259,7 +322,7 @@
 
         <div id="paragraphs">
 
-          <h2>You can 'Drag and Drop' a unit from the centre list directly into the bin, causing it to be removed from the centre list. <br> It isn't necessarily 'mobile optimised', however you should still be able to create layouts on mobile. <br> 'Drag and Drop' doesn't work on some browsers (mostly outdated browsers). <br> It has been tested and works correctly on: <br> - Google Chrome <br> - Microsoft Edge <br> - Safari on iPadOS <br> - Safari on iOS <br> - Chrome for iOS <br> - Edge for iOS <br> - Firefox for iOS <br> It has been tested and doesn't work on: <br> - Internet Explorer </h2>
+          <h2>You can 'Drag and Drop' a unit from the centre list directly into the bin, causing it to be removed from the centre list. <br> It isn't necessarily 'mobile optimised', however you should still be able to create layouts on mobile. <br> 'Drag and Drop' doesn't work on some browsers (mostly outdated browsers). <br> It has been tested and works correctly on: <br> - Google Chrome for Windows <br> - Microsoft Edge for Windows <br> - Firefox for Mac <br> - Safari for iPadOS <br> - Safari for iOS <br> - Chrome for iOS <br> - Edge for iOS <br> - Firefox for iOS <br> - Android Default Browser <br> It has been tested and doesn't work on: <br> - Internet Explorer </h2>
 
         </div>
 

@@ -1,0 +1,406 @@
+<html>
+
+    <head>
+
+        <style>
+
+          @font-face {
+            font-family: Exo2;
+            src: url("font/Exo2-SemiBold.ttf");
+          }
+
+          #t2, #t3, #t4 {
+            width: 100;
+            height: 100;
+            border: 5px solid black;
+            float: left;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0.75em;
+          }
+
+          #m1, #m2, #m3, #m4, #m5 {
+            width: 100;
+            height: 100;
+            border: 5px solid black;
+            float: left;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0.75em;
+          }
+
+          #b1, #b2, #b3, #b4, #b5 {
+            width: 100;
+            height: 100;
+            border: 5px solid black;
+            float: left;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0.75em;
+          }
+
+          #top {
+            display: inline-block;
+          }
+
+          #middle {
+            display: inline-block;
+          }
+
+          #bottom {
+            display: inline-block;
+          }
+
+          #table {
+            text-align: center;
+            height: 300;
+            float: left;
+            font-family: Exo2;
+          }
+
+          #back, #front {
+            margin-left: 0.75em;
+          }
+
+          #ratsIMG {
+            border: 5px solid black;
+            padding: 1em;
+            margin: 0.75em;
+            margin-left: 5em;
+            margin-top: 2em;
+            height: 25em;
+            overflow-y: scroll;
+          }
+
+          #corpsGun, #howitzer, #regimentalHowitzer, #bazooka, #gunner, #shieldtrooper, #sniper, #trooper, #tankLight, #tankMiddle, #oustin, #explosive, #hostage, #stones {
+            padding-bottom: 1em;
+          }
+
+          #bin {
+            padding: 1em;
+            border: 5px solid black;
+            margin: 0.75em;
+            margin-left: 5em;
+            margin-top: 0.75em;
+          }
+
+          #tools {
+            float: left;
+            text-align: center;
+          }
+
+          #instructions {
+            text-align: left;
+            width: 400;
+            float: left;
+            font-family: Exo2;
+          }
+
+          #title {
+            margin-left: 5em;
+          }
+
+          #paragraphs {
+            margin-left: 5em;
+          }
+
+          html {
+            padding-bottom: 3em;
+          }
+
+        </style>
+
+        <script src="DragDropTouch.js"></script>
+        <script src="alert.js"></script>
+
+        <script>
+
+        var num = 16;
+
+        function allowDrop(ev) {
+          ev.preventDefault();
+        }
+
+        function drag(ev) {
+          ev.dataTransfer.setData("div", ev.target.id);
+        }
+
+        function drop(ev) {
+          ev.preventDefault();
+          if(ev.target.children.length === 0) {
+            var data = ev.dataTransfer.getData("div");
+
+            if (data == "drag11") {
+              var placedTile = ev.target.id
+
+              if (placedTile.startsWith("b")) {
+                window.alert("This Vehicle takes up a 1x2 tile area, so it can only be placed on the Middle or Top row. If you'd like to use it, please place it on those rows.");
+                return
+              }
+              if (placedTile.startsWith("m")) {
+                var dupTile = placedTile.replace("m", "b");
+              }
+              if (placedTile.startsWith("t")) {
+                var dupTile = placedTile.replace("t", "m");
+              }
+
+              var dupTilePlace = document.getElementById(dupTile);
+
+              if (dupTilePlace.innerHTML === "") {
+                var nodeCopy = document.getElementById(data).cloneNode(true);
+                nodeCopy.id = "dragged" + num;
+                ev.target.appendChild(nodeCopy);
+                num++;
+
+                var nodeCopy = document.getElementById(data).cloneNode(true);
+                nodeCopy.id = "dragged" + num;
+                dupTilePlace.appendChild(nodeCopy);
+                playAlert("tink")
+                num++;
+
+                window.alert("This Vehicle takes up a 1x2 tile area, hence it has been placed below this tile too. If you need to remove this Vehicle, you'll need to drag both of them to the Bin.");
+              }
+
+              else {
+                window.alert("This Vehicle takes up a 1x2 tile area, but there is another Outcast placed below the tile you are trying to place this Vehicle in. Please drag the Outcast below this tile to the Bin, and try placing it again. (If the Outcast below this tile is also one that takes up multiple tiles, please drag all of them to the bin)");
+              }
+            }
+
+            else if (data == "drag9" || data == "drag10") {
+              var placedTile = ev.target.id
+
+              if (placedTile.startsWith("b")) {
+                window.alert("This Tank takes up a 2x2 tile area, so it can only be placed on the Middle or Top row, and not in the right-hand-most column. If you'd like to use it, please place it on those rows.");
+                return
+              }
+              if (placedTile.startsWith("m")) {
+                var placedTileNum = placedTile.substr(-1);
+                var placedTileNum = parseInt(placedTileNum);
+                var placedTileNumRight = placedTileNum + 1
+                var dupTileDown = placedTile.replace("m", "b");
+                var dupTileRight = placedTile.replace(placedTileNum, placedTileNumRight);
+                var dupTileRightDown = placedTile.replace("m", "b");
+                var dupTileRightDown = dupTileRightDown.replace(placedTileNum, placedTileNumRight);
+              }
+              if (placedTile.startsWith("t")) {
+                var placedTileNum = placedTile.substr(-1);
+                var placedTileNum = parseInt(placedTileNum);
+                var placedTileNumRight = placedTileNum + 1
+                var dupTileDown = placedTile.replace("t", "m");
+                var dupTileRight = placedTile.replace(placedTileNum, placedTileNumRight);
+                var dupTileRightDown = placedTile.replace("t", "m");
+                var dupTileRightDown = dupTileRightDown.replace(placedTileNum, placedTileNumRight);
+              }
+
+              var dupTileDownPlace = document.getElementById(dupTileDown);
+              var dupTileRightPlace = document.getElementById(dupTileRight);
+              var dupTileRightDownPlace = document.getElementById(dupTileRightDown);
+
+              if (placedTile == "t4" || placedTile == "m5") {
+                window.alert("This Tank takes up a 2x2 tile area, but you have tried placing it on the right-hand-most column, so it cannot fit here. Please try placing it again elsewhere, not on the right-hand-most column.");
+              }
+
+              else {
+                if (dupTileDownPlace.innerHTML === "" && dupTileRightPlace.innerHTML === "" && dupTileRightDownPlace.innerHTML === "") {
+                  var nodeCopy = document.getElementById(data).cloneNode(true);
+                  nodeCopy.id = "dragged" + num;
+                  ev.target.appendChild(nodeCopy);
+                  num++;
+
+                  var nodeCopy = document.getElementById(data).cloneNode(true);
+                  nodeCopy.id = "dragged" + num;
+                  dupTileDownPlace.appendChild(nodeCopy);
+                  playAlert("tink")
+                  num++;
+
+                  var nodeCopy = document.getElementById(data).cloneNode(true);
+                  nodeCopy.id = "dragged" + num;
+                  dupTileRightPlace.appendChild(nodeCopy);
+                  playAlert("tink")
+                  num++;
+
+                  var nodeCopy = document.getElementById(data).cloneNode(true);
+                  nodeCopy.id = "dragged" + num;
+                  dupTileRightDownPlace.appendChild(nodeCopy);
+                  playAlert("tink")
+                  num++;
+
+                  window.alert("This Tank takes up a 2x2 tile area, hence it has been placed below this tile, to the right, and to the right down diagonally too. If you need to remove this Tank, you'll need to drag all four of them to the Bin.");
+                }
+
+                else {
+                  window.alert("This Tank takes up a 2x2 tile area, but there is another Outcast placed below, to the right of, or diagonally below and right of the tile you are trying to place this Tank in. Please drag the Outcast(s) in the way to the Bin, and try placing it again. (If the Outcast below this tile is also one that takes up multiple tiles, please drag all of them to the bin)");
+                }
+              }
+
+            }
+
+            else {
+              var nodeCopy = document.getElementById(data).cloneNode(true);
+              nodeCopy.id = "dragged" + num;
+              ev.target.appendChild(nodeCopy);
+              playAlert("tink")
+              num++;
+            }
+          }
+        }
+
+        function drop2(ev) {
+          ev.preventDefault();
+          var data = ev.dataTransfer.getData("div");
+          ev.target.appendChild(document.getElementById(data));
+          playAlert("morse")
+        }
+
+        </script>
+
+    </head>
+
+    <body>
+
+      <div id="table">
+
+        <h1 id="back">Back (side furthest from your army)</h1>
+
+        <div id="top">
+
+          <div id="t2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+          <div id="t3" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+          <div id="t4" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+
+        </div>
+
+        <br>
+
+        <div id="middle">
+
+          <div id="m1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+          <div id="m2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+          <div id="m3" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+          <div id="m4" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+          <div id="m5" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+
+        </div>
+
+        <br>
+
+        <div id="bottom">
+
+          <div id="b1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+          <div id="b2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+          <div id="b3" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+          <div id="b4" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+          <div id="b5" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+
+        </div>
+
+        <h1 id="front">Front (side facing your army)</h1>
+        <h1 id="front">Your army is positioned here</h1>
+
+      </div>
+
+      <div id="tools">
+
+        <div id="ratsIMG">
+
+          <div id="corpsGun">
+            <img id="drag1" src="player/Artillery/artillery_corps_gun_front.png" draggable="true" ondragstart="drag(event)" width="75">
+          </div>
+
+          <div id="howitzer">
+            <img id="drag2" src="player/Artillery/artillery_howitzer_front.png" draggable="true" ondragstart="drag(event)" width="75">
+          </div>
+
+          <div id="regimentalHowitzer">
+            <img id="drag3" src="player/Artillery/artillery_regimental_howitzer_front.png" draggable="true" ondragstart="drag(event)" width="75">
+          </div>
+
+          <div id="bazooka">
+            <img id="drag4" src="player/Soldiers/bazooka_front.png" draggable="true" ondragstart="drag(event)" width="75">
+          </div>
+
+          <div id="gunner">
+            <img id="drag5" src="player/Soldiers/gunner_front.png" draggable="true" ondragstart="drag(event)" width="75">
+          </div>
+
+          <div id="shieldtrooper">
+            <img id="drag6" src="player/Soldiers/shieldtrooper_front.png" draggable="true" ondragstart="drag(event)" width="75">
+          </div>
+
+          <div id="sniper">
+            <img id="drag7" src="player/Soldiers/sniper_front.png" draggable="true" ondragstart="drag(event)" width="75">
+          </div>
+
+          <div id="trooper">
+            <img id="drag8" src="player/Soldiers/trooper_front.png" draggable="true" ondragstart="drag(event)" width="75">
+          </div>
+
+          <div id="tankLight">
+            <img id="drag9" src="player/Vehicles/tank_light_front.png" draggable="true" ondragstart="drag(event)" width="75">
+          </div>
+
+          <div id="tankMiddle">
+            <img id="drag10" src="player/Vehicles/tank_middle_front.png" draggable="true" ondragstart="drag(event)" width="75">
+          </div>
+
+          <div id="oustin">
+            <img id="drag11" src="player/Vehicles/teh_oustin_front.png" draggable="true" ondragstart="drag(event)" width="75">
+          </div>
+
+          <div id="explosive">
+            <img id="drag12" src="player/Objects/explosive_000.png" draggable="true" ondragstart="drag(event)" width="75">
+          </div>
+
+          <div id="hostage">
+            <img id="drag13" src="player/Objects/hostage_000.png" draggable="true" ondragstart="drag(event)" width="75">
+          </div>
+
+          <div id="stones">
+            <img id="drag14" src="player/Objects/stones_00.png" draggable="true" ondragstart="drag(event)" width="75">
+          </div>
+
+          <div id="treelog">
+            <img id="drag15" src="player/Objects/treelog_00.png" draggable="true" ondragstart="drag(event)" width="75">
+          </div>
+
+        </div>
+
+        <div id="remove">
+          <img id="bin" src="otherIMG/recycle-bin.png" width="75" height="75" ondrop="drop2(event)" ondragover="allowDrop(event)">
+        </div>
+
+      </div>
+
+      <div id="instructions">
+
+        <div id="title">
+
+          <h1>Instructions:</h1>
+
+        </div>
+
+        <div id="paragraphs">
+
+          <h2>'Drag and Drop' the units from the box in the centre to the boxes on the left. <br> To remove a unit from a box on the left, 'Drag and Drop' the unit into the bin in the centre. <br> Once you are happy with your layout, please screenshot it and send it in #outcasts-layouts in the Frontier Chronicles Discord server.</h2>
+
+        </div>
+
+        <div id="title">
+
+          <h1>Known Issues:</h1>
+
+        </div>
+
+        <div id="paragraphs">
+
+          <h2>You can 'Drag and Drop' a unit from the centre list directly into the bin, causing it to be removed from the centre list. <br> It isn't necessarily 'mobile optimised', however you should still be able to create layouts on mobile. <br> 'Drag and Drop' doesn't work on some browsers (mostly outdated browsers). <br> It has been tested and works correctly on: <br> - Google Chrome for Windows <br> - Microsoft Edge for Windows <br> - Firefox for Mac <br> - Safari for iPadOS <br> - Safari for iOS <br> - Chrome for iOS <br> - Edge for iOS <br> - Firefox for iOS <br> - Android Default Browser <br> It has been tested and doesn't work on: <br> - Internet Explorer </h2>
+
+        </div>
+
+      </div>
+
+    </body>
+</html>
