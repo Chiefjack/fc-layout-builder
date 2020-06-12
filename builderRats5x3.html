@@ -152,8 +152,13 @@
         function drop2(ev) {
           ev.preventDefault();
           var data = ev.dataTransfer.getData("div");
-          ev.target.appendChild(document.getElementById(data));
-          playAlert("morse")
+          if (data == "drag1" || data == "drag2" || data == "drag3" || data == "drag4" || data == "drag5" || data == "drag6" || data == "drag7" || data == "drag8") {
+            return
+          }
+          else {
+            ev.target.appendChild(document.getElementById(data));
+            playAlert("morse")
+          }
         }
 
         </script>
@@ -269,7 +274,7 @@
 
         <div id="paragraphs">
 
-          <h2>You can 'Drag and Drop' a unit from the centre list directly into the bin, causing it to be removed from the centre list. <br><br> It isn't necessarily 'mobile optimised', however you should still be able to create layouts on mobile. <br><br> 'Drag and Drop' doesn't work on some browsers (mostly outdated browsers). <br> <b> It has been tested and works correctly on: </b> <br> - Google Chrome for Windows <br> - Microsoft Edge for Windows <br> - Firefox for Mac <br> - Safari for iPadOS <br> - Safari for iOS <br> - Chrome for iOS <br> - Edge for iOS <br> - Firefox for iOS <br> - Samsung Internet for Android <br> <b> It has been tested and doesn't work on: </b> <br> - Internet Explorer </h2>
+          <h2>It isn't necessarily 'mobile optimised', however you should still be able to create layouts on mobile. <br><br> 'Drag and Drop' doesn't work on some browsers (mostly outdated browsers). <br> <b> It has been tested and works correctly on: </b> <br> - Google Chrome for Windows <br> - Microsoft Edge for Windows <br> - Firefox for Mac <br> - Safari for iPadOS <br> - Safari for iOS <br> - Chrome for iOS <br> - Edge for iOS <br> - Firefox for iOS <br> - Samsung Internet for Android <br> <b> It has been tested and doesn't work on: </b> <br> - Internet Explorer </h2>
 
         </div>
 
